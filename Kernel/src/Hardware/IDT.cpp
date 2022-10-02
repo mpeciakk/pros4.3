@@ -1,5 +1,6 @@
 #include <Hardware/IDT.hpp>
 #include <Lib/Log.hpp>
+#include <Hardware/Exceptions.hpp>
 
 #define IDT_INTERRUPT_GATE 0x8E
 #define IDT_TRAP_GATE 0x8F
@@ -10,6 +11,18 @@ extern "C" void ignoreInterrupt();
 
 InterruptManager::InterruptManager() : masterCommandPort(0x20), masterDataPort(0x21), slaveCommandPort(0xA0), slaveDataPort(0xA1) {
     u16 codeSegment = 0x08;
+
+    DivideByZeroException divideByZeroException;
+    DoubleFaultException doubleFaultException;
+    InvalidTSSException invalidTSSException;
+    GeneralProtectionFaultException generalProtectionFaultException;
+    PageFaultException pageFaultException;
+
+    handlers[0x00] = &divideByZeroException;
+    handlers[0x08] = &doubleFaultException;
+    handlers[0x0A] = &invalidTSSException;
+    handlers[0x0D] = &generalProtectionFaultException;
+    handlers[0x0E] = &pageFaultException;
 
     for (u8 i = 0; i < 255; i++) {
         setIDTEntry(i, &ignoreInterrupt, codeSegment, IDT_INTERRUPT_GATE);
@@ -88,6 +101,10 @@ void InterruptManager::setIDTEntry(u8 interrupt, void (*handler)(), u16 codeSegm
 }
 
 u32 InterruptManager::doHandleInterrupt(u8 interrupt, u32 esp) {
+    if (handlers[interrupt] != nullptr) {
+        esp = handlers[interrupt]->handle(esp);
+    }
+
     if (HARDWARE_INTERRUPT_OFFSET <= interrupt && interrupt < HARDWARE_INTERRUPT_OFFSET + 16) {
         masterCommandPort.write(0x20);
 
