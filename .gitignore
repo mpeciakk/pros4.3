@@ -1,0 +1,14 @@
+.idea
+.git
+iso
+pros.img
+pros.vdi
+kernel.map
+log.txt
+cmake-build-debug-wsl
+Build
+Toolchain/Build
+Toolchain/i686
+Toolchain/Tarballs
+Meta
+mount
