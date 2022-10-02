@@ -57,6 +57,11 @@ extern "C" void handleInterrupt0x0E();
 extern "C" void handleInterrupt0x0F();
 extern "C" void handleInterrupt0x80();
 
+class InterruptHandler {
+public:
+    virtual u32 handle(u32 esp);
+};
+
 class InterruptManager {
 public:
     InterruptManager();
@@ -65,6 +70,8 @@ public:
         static InterruptManager interruptManager;
         return interruptManager;
     }
+
+    InterruptHandler* handlers[256];
 
 private:
     __attribute__((aligned(0x10))) IDTEntry idt[256];
