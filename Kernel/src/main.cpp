@@ -1,8 +1,8 @@
 #include <VGA.hpp>
 #include <Lib/Log.hpp>
-#include <Lib/String.hpp>
 #include <Hardware/GDT.hpp>
 #include <Hardware/IDT.hpp>
+#include <Debug/Tests.hpp>
 #include <MM/MemoryManager.hpp>
 #include <Multiboot.hpp>
 
@@ -26,6 +26,8 @@ extern "C" [[noreturn]] void kmain(multiboot_info* physMbi, unsigned int multibo
     log(3, "%s", (char*) a);
 
     memoryManager.freePhysicalPages((void*) virt2phys(a));
+
+    performTests();
 
     while (true) {}
 }
