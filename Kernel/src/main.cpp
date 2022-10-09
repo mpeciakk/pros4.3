@@ -2,6 +2,7 @@
 #include <Lib/Log.hpp>
 #include <Hardware/GDT.hpp>
 #include <Hardware/IDT.hpp>
+#include <Debug/Tests.hpp>
 
 extern "C" [[noreturn]] void kmain() {
     VGA::instance().clear();
@@ -10,6 +11,8 @@ extern "C" [[noreturn]] void kmain() {
     GDT gdt;
 
     InterruptManager idt;
+
+    performTests();
 
     while (true) {}
 }
