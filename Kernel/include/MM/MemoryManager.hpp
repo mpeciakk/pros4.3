@@ -16,6 +16,11 @@ class MemoryManager {
 public:
     MemoryManager();
 
+    static MemoryManager& instance() {
+        static MemoryManager memoryManager;
+        return memoryManager;
+    }
+
     void initialize(u32* grubMemoryMap, u32 grubMemoryMapSize);
 
     u32 getFreePhysicalPage(u32 size = 1);
