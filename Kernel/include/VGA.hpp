@@ -23,8 +23,6 @@
 
 class VGA {
 public:
-    ~VGA() = default;
-
     static VGA& instance() {
         static VGA vga;
         return vga;

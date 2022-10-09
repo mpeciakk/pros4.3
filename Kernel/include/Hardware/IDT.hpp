@@ -59,7 +59,7 @@ extern "C" void handleInterrupt0x80();
 
 class InterruptHandler {
 public:
-    virtual u32 handle(u32 esp);
+    virtual u32 handle(u32 esp) = 0;
 };
 
 class InterruptManager {
@@ -84,7 +84,7 @@ private:
     void setIDTEntry(u8 interrupt, void (*handler)(), u16 codeSegment, u8 type);
     u32 doHandleInterrupt(u8 interrupt, u32 esp);
 
-    static u32 handleInterrupt(u8 interrupt, u32 esp);
+    __attribute__((unused)) static u32 handleInterrupt(u8 interrupt, u32 esp);
 };
 
 #endif

@@ -1,6 +1,6 @@
+#include <Hardware/Exceptions.hpp>
 #include <Hardware/IDT.hpp>
 #include <Lib/Log.hpp>
-#include <Hardware/Exceptions.hpp>
 
 #define IDT_INTERRUPT_GATE 0x8E
 #define IDT_TRAP_GATE 0x8F
@@ -12,6 +12,7 @@ extern "C" void ignoreInterrupt();
 InterruptManager::InterruptManager() : masterCommandPort(0x20), masterDataPort(0x21), slaveCommandPort(0xA0), slaveDataPort(0xA1) {
     u16 codeSegment = 0x08;
 
+    // TODO: these should be initialized on heap when it will be available?
     DivideByZeroException divideByZeroException;
     DoubleFaultException doubleFaultException;
     InvalidTSSException invalidTSSException;

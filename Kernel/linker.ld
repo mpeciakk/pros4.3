@@ -5,6 +5,8 @@ OUTPUT_ARCH(i386:i386)
 SECTIONS {
     . = 0xC0100000; /* Starts at 3GB + 1MB. */
 
+    kernelStart = .;
+
 	.text ALIGN(4K) : AT(ADDR(.text) - 0xC0000000) {
 		*(.multiboot)
 		*(.text*)
@@ -22,4 +24,6 @@ SECTIONS {
 	.data ALIGN(4K) : AT(ADDR(.data) - 0xC0000000) {
 		*(.data)
 	}
+
+	kernelEnd = .;
 }

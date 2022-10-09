@@ -61,7 +61,7 @@ u32 countDigit(u32 n, u32 base) {
     return count;
 }
 
-u32 abs(int n) {
+int abs(u32 n) {
     return (n >= 0) ? n : -n;
 }
 
@@ -79,7 +79,7 @@ char* reverse(char* buffer, int i, int j) {
     return buffer;
 }
 
-char* itos(int value, char* buffer, int base) {
+char* itos(u32 value, char* buffer, int base) {
     // Only when heap is uninitialized
     // TODO: write better way with heap initialized
     if (base < 2 || base > 32) {

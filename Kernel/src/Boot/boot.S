@@ -68,6 +68,7 @@ _start:
 
     mov $stack_top, %esp
 
+    push %ebx
     call kmain
 
     cli

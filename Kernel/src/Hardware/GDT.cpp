@@ -1,5 +1,6 @@
 #include <Hardware/GDT.hpp>
 #include <Lib/String.hpp>
+#include <Lib/Log.hpp>
 
 #define MAX_DESCRIPTORS 5
 
@@ -28,8 +29,10 @@ GDT::GDT() {
         : "i"(0x10), "i"(0x08));
 }
 
-void GDT::setDescriptor(u32 i, u64 base, u64 limit, u8 access, u8 grand) {
+void GDT::setDescriptor(u32 i, u32 base, u32 limit, u8 access, u8 grand) {
     memset((void*) &descriptors[i], 0, sizeof(Descriptor));
+
+    klog(3, "GDT: Descriptor %d, base: 0x%x, limit: 0x%x, access: 0x%x, grand: 0x%x", i, base, limit, access, grand);
 
     descriptors[i].baseLow = base & 0xFFFF;
     descriptors[i].baseMid = (base >> 16) & 0xFF;

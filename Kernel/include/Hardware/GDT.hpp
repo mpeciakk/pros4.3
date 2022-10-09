@@ -26,7 +26,7 @@ private:
 
     Descriptor descriptors[GDT_MAX_DESCRIPTORS];
 
-    void setDescriptor(u32 i, u64 base, u64 limit, u8 access, u8 grand);
+    void setDescriptor(u32 i, u32 base, u32 limit, u8 access, u8 grand);
 };
 
 #endif

@@ -13,4 +13,16 @@ using u32 = unsigned int;
 using i64 = signed long long;
 using u64 = unsigned long long;
 
+constexpr u32 operator"" _KB(unsigned long long n) {
+    return n * 1024;
+}
+
+constexpr u32 operator"" _MB(unsigned long long n) {
+    return n * (1024_KB);
+}
+
+constexpr u32 operator"" _GB(unsigned long long n) {
+    return n * (1024_MB);
+}
+
 #endif
