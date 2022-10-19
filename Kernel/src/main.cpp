@@ -13,13 +13,16 @@ extern "C" [[noreturn]] void kmain(multiboot_info* physMbi, unsigned int multibo
     log(0, "Kernel loaded!");
 
     GDT gdt;
+    klog(3, "KMAIN: GDT initialized");
 
     InterruptManager::instance();
+    klog(3, "KMAIN: Interrupts enabled");
 
     MemoryManager::instance();
     MemoryManager::instance().initialize((u32*) mbi->mmap_addr, mbi->mmap_length);
+    klog(3, "KMAIN: Memory manager enabled");
 
-    performTests();
+    // performTests();
 
     while (true) {}
 }

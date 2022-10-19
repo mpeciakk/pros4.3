@@ -49,7 +49,7 @@ void MemoryManager::initializePMM(multiboot_mmap_entry* grubMemoryMap, u32 grubM
 
     setRegionUsed(0x00000000, 1_MB);
     setRegionUsed(virt2phys((u32) &kernelStart), (u32) &kernelEnd - (u32) &kernelStart);
-    setRegionUsed(virt2phys((u32) &kernelEnd), memorySize / 32 / 4096);
+    setRegionUsed(virt2phys((u32) &kernelEnd), memorySize / 8 / 4096);
 
     klog(3, "PMM: maximumBlocks: %d, usedBlocks: %d, freeBlocks: %d", maxiumumBlocks, usedBlocks, maxiumumBlocks - usedBlocks);
 }

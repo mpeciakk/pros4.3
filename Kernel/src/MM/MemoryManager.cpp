@@ -1,10 +1,11 @@
-#include <MM/MemoryManager.hpp>
 #include <Lib/Log.hpp>
+#include <MM/MemoryManager.hpp>
+
 
 extern "C" u32* kernelStart;
 extern "C" u32* kernelEnd;
 
-MemoryManager::MemoryManager() {}
+MemoryManager::MemoryManager() { }
 
 void MemoryManager::initialize(u32* grubPhysMemoryMap, u32 grubMemoryMapSize) {
     auto* grubMemoryMap = (multiboot_mmap_entry*) phys2virt(grubPhysMemoryMap);
@@ -28,4 +29,5 @@ void MemoryManager::initialize(u32* grubPhysMemoryMap, u32 grubMemoryMapSize) {
     klog(0, "MM: Memory size: %d KB", memorySize / 1024);
 
     initializePMM(grubMemoryMap, grubMemoryMapSize);
+    initializeVMM();
 }

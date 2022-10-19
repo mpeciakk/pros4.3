@@ -1,5 +1,5 @@
 # Prepare variables
-export PROS_HOME=/home/maciek/Projects/pros4
+export PROS_HOME=$HOME/Projects/pros4.3
 export PREFIX="$PROS_HOME/Toolchain/i686"
 export TARGET=i686-elf
 export PATH="$PREFIX/bin:$PATH"
